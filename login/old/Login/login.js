@@ -2,8 +2,12 @@ import React, {Component} from 'react';
 import { View, StyleSheet, Image,Text, KeyboardAvoidingView } from 'react-native';
 import LoginForm from  './loginForm'
 
-export default class Login extends Component{
+
+  export default class Login extends Component {    
+    
+    
     render() {
+        
       return (
         <KeyboardAvoidingView behavior="padding" style={styles.container}>            
                 <View style= {styles.logoContainer}>          
@@ -38,7 +42,7 @@ const styles = StyleSheet.create({
     },
     logo:{        
         width:100,
-        height:100        
+        height:100,           
     },
     title:{
         marginTop:10,

@@ -1,3 +1,8 @@
+import ScreenManager from './src/screens/ScreenManager';
+export default ScreenManager;
+
+
+/*
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 import Splash from './Splash';
@@ -13,6 +18,7 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 */
+/*
 type Props = {};
 export default class App extends Component<Props> {
   render() {
@@ -36,3 +42,4 @@ const styles = StyleSheet.create({
   }
 
 });
+*/
