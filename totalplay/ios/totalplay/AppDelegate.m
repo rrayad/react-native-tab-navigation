@@ -5,16 +5,19 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+
 #import "AppDelegate.h"
 
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+@import GoogleMaps;
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   NSURL *jsCodeLocation;
+  [GMSServices provideAPIKey:@"AIzaSyDWG10DxlzOnl0-ietiyft1zUbTjdIutPg"];
 
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
 
