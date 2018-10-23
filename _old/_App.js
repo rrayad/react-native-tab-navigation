@@ -2,49 +2,55 @@ import React, {Component} from 'react';
 import {Platform, PermissionsAndroid, Alert, Text, View} from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+
  
-class HomeScreen extends React.Component<{}>  {  	
-
+class HomeScreen extends React.Component {
+  
   constructor(props) {
-    super(props)
-    this.stateMaps = {
-      latitude: null,
-      longitute: null,
-      timestamp: null  
+    super(props);
+}
+
+async requestLocationPermission() {
+    const chckLocationPermission = PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
+    if (chckLocationPermission === PermissionsAndroid.RESULTS.GRANTED) {
+        alert("You've access for the location");
+    } else {
+        try {
+            const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+                {
+                    'title': 'Cool Location App required Location permission',
+                    'message': 'We required Location permission in order to get device location ' +
+                        'Please grant us.'
+                }
+            )
+            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                alert("You've access for the location");
+            } else {
+                alert("You don't have access for the location");
+            }
+        } catch (err) {
+            alert(err)
+        }
     }
-    this.state = {
-      prevScreenTitle: this.props.navigation.state.params.prevScreenTitle,
-      people: this.props.navigation.state.params.people,
-    };
-}
-componentDidMount() {
-  navigator.geolocation.getCurrentPosition(
-    (position) => {
-      this.setState({ 
-        latitude: position.coords.latitude ,
-        longitute: position.coords.longitude,
-        timestamp:  position.timestamp
+};
 
-      })
-      console.log(this.setState)
-    },
-    
-    (error) => { console.log(error); },
-    { enableHighAccuracy: true, timeout: 30000 }
-  )
+render() {
+    return (
+        <Text
+            onPress={() => this.requestLocationPermission()}>
+            Request Location Permission
+        </Text>
+    )
 }
-
 
   render() {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>          
-      
-      <View>
-        <Text>{this.state.latitude}</Text>
-        <Text>{this.state.longitude}</Text>
-        <Text>{this.state.timestamp}</Text>
-      </View>
-
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <Text
+                onPress={() => this.requestLocationPermission()}>
+                Request Location Permission
+            </Text>
+        <Text>Home!</Text>
       </View>
     );
   }
@@ -53,23 +59,18 @@ componentDidMount() {
 
 
 class MapScreen extends React.Component {
-  state = {
-    longitude: '',
-      latitude: ''
-    }
+ 
 
-  render() {            
+  render() {    
     return (      
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>                
-  
-  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
          <View style={{ flexGrow: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Text>Latitude: {this.state.latitude}</Text>
         <Text>Longitude: {this.state.longitude}</Text>
         {this.state.error ? <Text>Error: {this.state.error}</Text> : null}
       </View>
       </View>
-    </View>
     );
   }
 }
@@ -83,6 +84,9 @@ class SettingsScreen extends React.Component {
     );
   }
 }
+
+
+
 
 export default createBottomTabNavigator({
   Chat: { screen: HomeScreen },
@@ -102,7 +106,8 @@ export default createBottomTabNavigator({
       }
       else if (routeName === 'Mapa') {
         iconName = 'ios-map';
-      }      
+      }
+      
       return <Ionicons name={iconName} size={horizontal ? 20 : 25} color={tintColor} />;
     },
   }),
@@ -112,3 +117,5 @@ export default createBottomTabNavigator({
   },
 }
 );
+
+

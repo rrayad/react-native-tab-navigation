@@ -10,7 +10,7 @@ export default class LoginForm extends Component<{}>{
           
         <View style= {styles.container}>          
         <StatusBar
-        barStyle="dark-content" />
+        barStyle="default-content" />
             <TextInput                 
                 placeholder="Usuario"
                 placeholderTextColor="rgba(255,255,255,0.7)"

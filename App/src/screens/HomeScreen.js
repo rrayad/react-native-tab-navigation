@@ -2,55 +2,27 @@ import React, {Component} from 'react';
 import {Platform, PermissionsAndroid, Alert, Text, View} from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
- 
-class HomeScreen extends React.Component<{}>  {  	
+import LoginScreen from './LoginScreen';
+import Chat from '../chat';
 
+ 
+class HomeScreen extends React.Component {
   constructor(props) {
     super(props)
-    this.stateMaps = {
-      latitude: null,
-      longitute: null,
-      timestamp: null  
-    }
+
     this.state = {
       prevScreenTitle: this.props.navigation.state.params.prevScreenTitle,
       people: this.props.navigation.state.params.people,
     };
 }
-componentDidMount() {
-  navigator.geolocation.getCurrentPosition(
-    (position) => {
-      this.setState({ 
-        latitude: position.coords.latitude ,
-        longitute: position.coords.longitude,
-        timestamp:  position.timestamp
-
-      })
-      console.log(this.setState)
-    },
-    
-    (error) => { console.log(error); },
-    { enableHighAccuracy: true, timeout: 30000 }
-  )
-}
-
-
   render() {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>          
-      
-      <View>
-        <Text>{this.state.latitude}</Text>
-        <Text>{this.state.longitude}</Text>
-        <Text>{this.state.timestamp}</Text>
-      </View>
-
+      <View style={{ flex:1 }}>          
+        <Chat/>
       </View>
     );
   }
 }
-
-
 
 class MapScreen extends React.Component {
   state = {
